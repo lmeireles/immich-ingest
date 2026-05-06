@@ -177,6 +177,9 @@ pub async fn add_assets_to_album(
         .await
         .map_err(|e| e.to_string())?;
 
+    if resp.status().as_u16() == 403 {
+        return Err("403 Forbidden — you can only add assets to albums you own. Select a different album or create a new one.".into());
+    }
     if !resp.status().is_success() {
         return Err(format!("HTTP {}", resp.status()));
     }
