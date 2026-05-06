@@ -34,6 +34,10 @@ Works with any camera following the DCF standard (Fujifilm, Sony, Canon, Nikon, 
 
 ## Roadmap
 
+- [x] Bulk upload from SD card DCIM folders
+- [x] Album selection and creation
+- [x] Concurrent uploads
+- [x] Cross-platform builds (macOS, Windows, Linux)
 - [ ] macOS notarization & App Store publishing
 - [ ] Windows Store publishing
 - [ ] Auto-detect SD card insertion and prompt to upload
@@ -41,6 +45,7 @@ Works with any camera following the DCF standard (Fujifilm, Sony, Canon, Nikon, 
 - [ ] Support for multiple albums in a single upload
 - [ ] Retry failed uploads automatically
 - [ ] Upload history / log view
+- [ ] Support for folder sync
 
 ## macOS note
 
