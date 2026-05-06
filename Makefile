@@ -5,7 +5,7 @@ VERSION := $(shell node -p "require('./package.json').version")
 # Tag and push the current version — triggers the GitHub Actions release workflow
 release:
 	@echo "Releasing v$(VERSION)..."
-	@git diff --exit-code --quiet || (echo "Uncommitted changes — commit first." && exit 1)
+	@git diff --exit-code --quiet && git diff --cached --exit-code --quiet && [ -z "$$(git ls-files --others --exclude-standard)" ] || (echo "Uncommitted or untracked changes — commit first." && exit 1)
 	git tag v$(VERSION)
 	git push origin v$(VERSION)
 
