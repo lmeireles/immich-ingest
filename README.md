@@ -2,6 +2,8 @@
 
 Desktop app for bulk-uploading camera SD card images to [Immich](https://immich.app). Built with Tauri 2, React, and TypeScript.
 
+![Home screen](docs/screenshots/home.png)
+
 ## What it does
 
 1. Select your SD card root folder
@@ -21,6 +23,8 @@ Videos: MP4, MOV, AVI, MKV
 Works with any camera following the DCF standard (Fujifilm, Sony, Canon, Nikon, etc.).
 
 ## Setup
+
+![Settings](docs/screenshots/settings.png)
 
 1. In your Immich web UI: **Account Settings → API Keys → New API Key**
 2. Install the app (or run `npm run tauri dev` for development)
