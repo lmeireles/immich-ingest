@@ -20,7 +20,7 @@ export function FolderList({
 }: Props) {
   if (folders.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-destructive">
         No DCIM folders found. Check that a DCIM/ directory exists at the card root.
       </p>
     );
