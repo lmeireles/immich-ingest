@@ -32,6 +32,23 @@ Works with any camera following the DCF standard (Fujifilm, Sony, Canon, Nikon, 
 3. Open Settings (gear icon), enter your Immich server URL and API key
 4. Click **Test Connection** to verify
 
+## Roadmap
+
+- [ ] macOS notarization & App Store publishing
+- [ ] Windows Store publishing
+- [ ] Auto-detect SD card insertion and prompt to upload
+- [ ] Upload progress per file (currently batch-level only)
+- [ ] Support for multiple albums in a single upload
+- [ ] Retry failed uploads automatically
+- [ ] Upload history / log view
+
+## macOS note
+
+The app is not yet notarized with Apple. On first launch you may see a warning that Apple cannot verify it is free of malware. To open it anyway:
+
+1. Right-click the app → **Open** → click **Open Anyway**, or
+2. Run in terminal: `xattr -dr com.apple.quarantine /Applications/Immich\ Sync.app`
+
 ## Development
 
 Requirements: Node 18+, Rust 1.75+, Tauri CLI v2
