@@ -68,7 +68,12 @@ export function AlbumSelect({
     <div className="space-y-2">
       <Select value={creating ? CREATE_NEW : selectedId} onValueChange={(v) => v && handleSelectChange(v)}>
         <SelectTrigger>
-          <SelectValue placeholder="Select an album..." />
+          <SelectValue placeholder="Select an album...">
+            {(value: string | null) => {
+              if (value === CREATE_NEW) return "Create new album...";
+              return albums.find((a) => a.id === value)?.albumName ?? value ?? null;
+            }}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           {albums.map((a) => (

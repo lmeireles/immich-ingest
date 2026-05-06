@@ -8,7 +8,8 @@
       "Bash(npm install *)",
       "Bash(npx shadcn@latest *)",
       "Bash(cargo check *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(xargs cat)"
     ]
   }
 }
