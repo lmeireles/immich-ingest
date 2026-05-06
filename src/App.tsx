@@ -206,7 +206,7 @@ export default function App() {
       <main className="flex-1 overflow-y-auto p-4 space-y-5">
         {!hasConnection && (
           <div className="rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:bg-amber-950 dark:text-amber-200 dark:border-amber-800">
-            Open Settings and enter your Immich server URL and API key to get started. The key needs <strong>Asset Upload</strong> and <strong>Album Read/Write</strong> permissions.
+            Open Settings and enter your Immich server URL and API key to get started. The key needs <strong>Album Read/Write</strong> and <strong>Asset Upload</strong> permissions.
           </div>
         )}
 

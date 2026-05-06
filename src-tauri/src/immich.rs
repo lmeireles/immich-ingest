@@ -4,12 +4,6 @@ use serde::Deserialize;
 use crate::models::Album;
 
 #[derive(Deserialize)]
-struct MeResponse {
-    name: Option<String>,
-    email: Option<String>,
-}
-
-#[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct AssetResponse {
     id: String,
@@ -45,7 +39,7 @@ fn base(url: &str) -> String {
 
 pub async fn test_connection(server_url: &str, api_key: &str) -> Result<String, String> {
     let resp = client()
-        .get(format!("{}/api/users/me", base(server_url)))
+        .get(format!("{}/api/albums", base(server_url)))
         .header("x-api-key", api_key)
         .send()
         .await
@@ -55,8 +49,8 @@ pub async fn test_connection(server_url: &str, api_key: &str) -> Result<String, 
         return Err(format!("HTTP {}", resp.status()));
     }
 
-    let me: MeResponse = resp.json().await.map_err(|e| e.to_string())?;
-    Ok(me.name.or(me.email).unwrap_or_else(|| "Connected".into()))
+    let albums: Vec<AlbumRaw> = resp.json().await.map_err(|e| e.to_string())?;
+    Ok(format!("Connected ({} album{})", albums.len(), if albums.len() == 1 { "" } else { "s" }))
 }
 
 pub async fn fetch_albums(server_url: &str, api_key: &str) -> Result<Vec<Album>, String> {

@@ -19,6 +19,7 @@ interface Props {
 }
 
 export function SettingsDrawer({ settings, onSave }: Props) {
+  const [open, setOpen] = useState(false);
   const [serverUrl, setServerUrl] = useState(settings.serverUrl);
   const [apiKey, setApiKey] = useState(settings.apiKey);
   const [concurrency, setConcurrency] = useState(settings.concurrency);
@@ -47,10 +48,11 @@ export function SettingsDrawer({ settings, onSave }: Props) {
       apiKey: apiKey.trim(),
       concurrency,
     });
+    setOpen(false);
   }
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
         <Button variant="ghost" size="icon" aria-label="Settings">
           <SettingsIcon className="h-5 w-5" />
