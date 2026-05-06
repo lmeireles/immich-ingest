@@ -5,8 +5,7 @@ mod scanner;
 mod uploader;
 
 use commands::{
-    create_album, delete_files, fetch_albums, list_folder_files, scan_dcim_command, start_upload,
-    test_connection,
+    create_album, fetch_albums, scan_dcim_command, start_upload, test_connection,
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -22,8 +21,6 @@ pub fn run() {
             fetch_albums,
             create_album,
             start_upload,
-            list_folder_files,
-            delete_files,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

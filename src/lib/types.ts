@@ -43,7 +43,6 @@ export interface Settings {
   lastAlbumId: string;
   imagesEnabled: boolean;
   videosEnabled: boolean;
-  deleteAfterUpload: boolean;
   concurrency: number;
 }
 
@@ -54,6 +53,5 @@ export const DEFAULT_SETTINGS: Settings = {
   lastAlbumId: "",
   imagesEnabled: true,
   videosEnabled: true,
-  deleteAfterUpload: false,
   concurrency: 4,
 };

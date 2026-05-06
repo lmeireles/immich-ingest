@@ -9,7 +9,6 @@
     "dialog:default",
     "fs:default",
     "fs:read-all",
-    "fs:allow-remove",
     "store:default"
   ]
 }

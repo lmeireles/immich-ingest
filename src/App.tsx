@@ -2,18 +2,10 @@ import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-dialog";
 import { listen } from "@tauri-apps/api/event";
-import { FolderOpen, Upload, Trash2, Loader2 } from "lucide-react";
+import { FolderOpen, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { SettingsDrawer } from "@/components/SettingsDrawer";
 import { FolderList } from "@/components/FolderList";
 import { AlbumSelect } from "@/components/AlbumSelect";
@@ -39,10 +31,8 @@ export default function App() {
   const [selectedAlbumId, setSelectedAlbumId] = useState("");
   const [images, setImages] = useState(true);
   const [videos, setVideos] = useState(true);
-  const [deleteAfter, setDeleteAfter] = useState(false);
   const [progress, setProgress] = useState<ProgressEvent | null>(null);
   const [result, setResult] = useState<UploadResult | null>(null);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [scanError, setScanError] = useState("");
   const [albumsError, setAlbumsError] = useState("");
 
@@ -51,7 +41,6 @@ export default function App() {
     if (!ready) return;
     setImages(settings.imagesEnabled);
     setVideos(settings.videosEnabled);
-    setDeleteAfter(settings.deleteAfterUpload);
     setSelectedAlbumId(settings.lastAlbumId);
     if (settings.serverUrl && settings.apiKey) {
       void loadAlbums(settings.serverUrl, settings.apiKey);
@@ -123,10 +112,6 @@ export default function App() {
       setResult(uploadResult);
       setAppState("done");
       await updateSettings({ lastAlbumId: selectedAlbumId });
-
-      if (deleteAfter && uploadResult.uploaded > 0) {
-        setShowDeleteConfirm(true);
-      }
     } catch (e) {
       setResult({
         uploaded: 0,
@@ -137,26 +122,6 @@ export default function App() {
       setAppState("done");
     } finally {
       unlisten();
-    }
-  }
-
-  async function handleDeleteConfirmed() {
-    setShowDeleteConfirm(false);
-    const filesToDelete: string[] = [];
-    for (const folderPath of selectedFolders) {
-      try {
-        const paths = await invoke<string[]>("list_folder_files", {
-          folder: folderPath,
-          images,
-          videos,
-        });
-        filesToDelete.push(...paths);
-      } catch {
-        // best effort
-      }
-    }
-    if (filesToDelete.length > 0) {
-      await invoke("delete_files", { paths: filesToDelete }).catch(console.error);
     }
   }
 
@@ -319,23 +284,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Delete after upload */}
-        {appState === "scanned" && (
-          <div className="flex items-center gap-2">
-            <Checkbox
-              id="deleteAfter"
-              checked={deleteAfter}
-              onCheckedChange={(c) => {
-                const val = c === true;
-                setDeleteAfter(val);
-                void updateSettings({ deleteAfterUpload: val });
-              }}
-            />
-            <Label htmlFor="deleteAfter" className="text-sm cursor-pointer">
-              Delete files from card after upload
-            </Label>
-          </div>
-        )}
       </main>
 
       {/* Footer action */}
@@ -370,28 +318,6 @@ export default function App() {
         )}
       </footer>
 
-      {/* Delete confirm dialog */}
-      <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Delete files from card?</DialogTitle>
-            <DialogDescription>
-              {result?.uploaded ?? 0} successfully uploaded files will be permanently
-              deleted from {cardPath}. Files with errors or duplicates will not be
-              deleted. This cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="ghost" onClick={() => setShowDeleteConfirm(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" onClick={handleDeleteConfirmed} className="gap-2">
-              <Trash2 className="h-4 w-4" />
-              Delete {result?.uploaded ?? 0} files
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
