@@ -27,6 +27,7 @@ Works with any camera following the DCF standard (Fujifilm, Sony, Canon, Nikon, 
 ![Settings](docs/screenshots/settings.png)
 
 1. In your Immich web UI: **Account Settings → API Keys → New API Key**
+   - Required permissions: `asset.upload`, `albumAsset.create`, `album.read`, `album.create`
 2. Install the app (or run `npm run tauri dev` for development)
 3. Open Settings (gear icon), enter your Immich server URL and API key
 4. Click **Test Connection** to verify
