@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:docs.immich.app)",
+      "WebFetch(domain:api.immich.app)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest *)",
+      "Bash(cargo check *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
