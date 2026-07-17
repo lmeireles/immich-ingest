@@ -21,7 +21,7 @@ export function FolderList({
   if (folders.length === 0) {
     return (
       <p className="text-sm text-destructive">
-        No DCIM folders found. Check that a DCIM/ directory exists at the card root.
+        No DCIM folders found. Check that a DCIM/ directory exists at the selected root.
       </p>
     );
   }
